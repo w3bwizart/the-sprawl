@@ -9,15 +9,22 @@
 
 ## 🗄️ Structure
 
-### `/rules`
-The inviolable laws that govern agent behavior.
-- **`GEMINI.md`**: The Prime Directive. Safety, Tone, and Stack constraints.
+### `Core/` (Universal Brain)
+Resources and capabilities that are theoretically available to ANY agent on the grid.
+- **`skills/`**: Universal capabilities (e.g., `git-commit`, `json-parse`).
+- **`workflows/`**: Universal SOPs (e.g., `security-audit`).
+- **`rules/`**: The Prime Directives.
 
-### `/templates`
-The blueprints for new constructs.
-- **`personas/`**: Standardized personality encodings (e.g., `solutions-architect.md`).
-- **`workflows/`**: Operational Procedures (SOPs).
-- **`project-structures/`**: Directory scaffold maps.
+### `Hub/` (Hub Prototypes)
+The standard structure for a specific "Construct" (Project/Team).
+- **`Rules/`**: Local Personas.
+- **`Skills/`**: Domain specific tools.
+- **`Workflows/`**: Business processes.
+- **`Knowledge/`**: Data, Context, Specs.
+- **`Scripts/`**: Automations.
+
+### `templates/`
+Scaffolding assets used by the **CLI**.
 
 ## 🔗 Integration
 The **CLI** pulls these artifacts during workspace initialization.

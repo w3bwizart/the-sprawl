@@ -1,0 +1,9 @@
+{
+  "apis": [
+    {
+      "name": "Jira",
+      "version": "3",
+      "url": "https://jira.example.com"
+    }
+  ]
+}

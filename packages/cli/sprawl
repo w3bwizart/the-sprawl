@@ -39,6 +39,13 @@ scaffold_workspace() {
         echo -e "\033[0;32m[OK] Prime Directive Installed.\033[0m"
     fi
 
+    # Scaffold Standard Hub Architecture (The Visible Structure)
+    echo -e "\033[0;33m[..] Stabilizing Hub Architecture...\033[0m"
+    mkdir -p Rules Skills Workflows Knowledge Scripts
+
+    # Add keepfiles to ensure git tracking
+    touch Rules/.gitkeep Skills/.gitkeep Workflows/.gitkeep Knowledge/.gitkeep Scripts/.gitkeep
+
     echo -e "\033[0;32m[OK] Construct Ready.\033[0m"
     echo "👉 Type /init to activate the agent."
 }
