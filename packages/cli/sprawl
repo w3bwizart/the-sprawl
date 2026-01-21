@@ -1,0 +1,55 @@
+#!/bin/bash
+# The Sprawl CLI // v0.1
+# "The street finds its own uses for things."
+
+set -e
+
+# 1. Resolve Locations
+# Get the absolute path of this script (assuming it lives in packages/cli/)
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+# Resolve the Core Templates path (Sibling directory)
+CORE_DIR="$(dirname "$SCRIPT_DIR")/core"
+TEMPLATE_DIR="$CORE_DIR/templates/scaffold"
+
+echo -e "\033[0;36m🌆 THE SPRAWL // SYSTEM INITIALIZATION\033[0m"
+
+# 2. Validation
+if [ ! -d "$TEMPLATE_DIR" ]; then
+    echo -e "\033[0;31m[ERROR] Core Protocol Missing.\033[0m"
+    echo "Expected at: $TEMPLATE_DIR"
+    echo "Ensure 'packages/core' is mapped correctly."
+    exit 1
+fi
+
+# 3. Scaffolding Logic
+scaffold_workspace() {
+    echo -e "\033[0;33m[..] Constructing Lattice...\033[0m"
+
+    mkdir -p .agent/rules .agent/workflows
+
+    # Copy Templates
+    cp "$TEMPLATE_DIR/gitignore" .gitignore
+    cp "$TEMPLATE_DIR/global.md" .agent/rules/global.md
+    cp "$TEMPLATE_DIR/init.md" .agent/workflows/init.md
+    cp "$TEMPLATE_DIR/dashboard.md" AGENT_CONTROL_DASHBOARD.md
+
+    # Copy Prime Directive if it exists
+    if [ -f "$CORE_DIR/rules/GEMINI.md" ]; then
+        cp "$CORE_DIR/rules/GEMINI.md" .agent/rules/PRIME_DIRECTIVE.md
+        echo -e "\033[0;32m[OK] Prime Directive Installed.\033[0m"
+    fi
+
+    echo -e "\033[0;32m[OK] Construct Ready.\033[0m"
+    echo "👉 Type /init to activate the agent."
+}
+
+# 4. Interface
+case "$1" in
+    init)
+        scaffold_workspace
+        ;;
+    *)
+        echo "Usage: sprawl [init]"
+        exit 1
+        ;;
+esac

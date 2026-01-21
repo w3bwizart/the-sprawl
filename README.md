@@ -1,0 +1,39 @@
+# The Sprawl
+
+> *The street finds its own uses for things.*
+
+## 📡 System Status: ONLINE
+**Protocol**: Atomic Agentic Design
+**Version**: 0.1.0 (Genesis)
+**Access**: Authorized Personnel Only
+
+## 🌆 Overview
+**The Sprawl** is the unified infrastructure for deploying, managing, and scaling autonomous agentic workmen across the corporate grid. It provides the lattice structure required to contain and orchestrate AI entities without constraining their potential.
+
+It consolidates the legacy protocols:
+- `atomic-agentic-architecture` -> **Core** (The Brain)
+- `atomic-agentic-hubs` -> **CLI** (The Arm)
+- `atomic-agentic-sync` -> **Link** (The Eye)
+
+## 📂 Architecture
+The system is organized into decoupled packages to ensure atomic integrity:
+
+- **`packages/core`**: The pure data layer. Templates, Schemas, Protocols. No code.
+- **`packages/cli`**: The execution layer. `sprawl-cli` for scaffolding and enforcement.
+- **`packages/vscode-extension`**: The visualization layer. Passive synchronization.
+
+## ⚡ Deployment
+```bash
+# Initialize the lattice
+git clone https://github.com/Start-Corp/The-Sprawl.git
+cd The-Sprawl
+make install
+```
+
+## ⚠️ Prime Directives
+1.  **Zero Dependencies**: The system runs on pure logic. Bash, Markdown, Vanilla JS.
+2.  **Loose Coupling**: Components must function autonomously.
+3.  **Safety First**: We do not let the AI loose without a leash.
+
+---
+*Powered by Atomic Agentic Design*

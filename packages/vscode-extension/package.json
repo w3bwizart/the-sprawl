@@ -1,0 +1,31 @@
+{
+    "name": "sprawl-lattice-sync",
+    "displayName": "The Sprawl: Lattice Sync",
+    "version": "0.1.0",
+    "publisher": "Atomic-Agents",
+    "engines": {
+        "vscode": "^1.104.0"
+    },
+    "activationEvents": [
+        "*"
+    ],
+    "main": "./out/extension.js",
+    "contributes": {
+        "commands": [
+            {
+                "command": "sprawl.sync",
+                "title": "Sprawl: Sync Grid",
+                "icon": "$(sync)"
+            }
+        ]
+    },
+    "scripts": {
+        "compile": "tsc -p ./",
+        "watch": "tsc -watch -p ./"
+    },
+    "devDependencies": {
+        "@types/node": "^25.0.0",
+        "@types/vscode": "1.104.0",
+        "typescript": "^5.0.0"
+    }
+}
