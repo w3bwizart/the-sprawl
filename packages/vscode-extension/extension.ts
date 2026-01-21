@@ -27,35 +27,25 @@ export function activate(context: vscode.ExtensionContext) {
         }, async (progress: vscode.Progress<{ message?: string; increment?: number }>) => {
 
             // TODO: Load this from a ~/.sprawl/config.json for true Loose Coupling
-            const fleetRepos: string[] = [
-                // "https://github.com/Start-Corp/finance-construct.git",
-                // "https://github.com/Start-Corp/marketing-construct.git"
-            ];
+            progress.report({ message: `Contacting The Sprawl CLI...` });
 
-            if (fleetRepos.length === 0) {
-                vscode.window.showInformationMessage('No active constructs found in configuration.');
-                return;
-            }
+            // Execute the CLI command 'sprawl sync'
+            // We assume 'sprawl' is in the user's PATH (as per README instructions)
+            const cmd = `sprawl sync`;
 
-            for (const repo of fleetRepos) {
-                const folderName = path.basename(repo, '.git');
-                const fullPath = path.join(targetDir, folderName);
-
-                progress.report({ message: `Syncing ${folderName}...` });
-
-                const gitCmd = `git clone ${repo} ${fullPath} || (cd ${fullPath} && git pull)`;
-
-                await new Promise((resolve) => {
-                    exec(gitCmd, (err: Error | null) => {
-                        if (err) {
-                            vscode.window.showErrorMessage(`Sync Error: ${err.message}`);
-                        }
-                        resolve(true);
-                    });
+            await new Promise((resolve) => {
+                exec(cmd, (err: Error | null, stdout: string, stderr: string) => {
+                    if (err) {
+                        console.error(stderr);
+                        vscode.window.showErrorMessage(`Grid Sync Failed: ${stderr || err.message}`);
+                        resolve(false);
+                        return;
+                    }
+                    console.log(stdout); // Log CLI output
+                    vscode.window.showInformationMessage('⚡ Grid Synchronization Complete.');
+                    resolve(true);
                 });
-            }
-
-            vscode.window.showInformationMessage('⚡ Grid Synchronization Complete.');
+            });
         });
     });
 
