@@ -75,20 +75,28 @@ sync_grid() {
     CONSTRUCT_DIR="$HOME/The_Sprawl_Constructs"
     mkdir -p "$CONSTRUCT_DIR"
 
-    # TODO: Read from a config file. For now, we simulate the Fleet.
-    # In a real scenario, this list comes from a central manifest.
-    REPOS=(
-        #"https://github.com/Start-Corp/finance-construct.git"
-        #"https://github.com/Start-Corp/marketing-construct.git"
-    )
+    # Define Manifest Path (Data separation)
+    MANIFEST="$CORE_DIR/grid-manifest.conf"
+
+    if [ ! -f "$MANIFEST" ]; then
+        echo -e "\033[0;31m[ERROR] Grid Manifest not found at: $MANIFEST\033[0m"
+        exit 1
+    fi
+
+    # Read Repositories from Manifest (ignoring comments and empty lines)
+    # mapfile is essentially 'readarray', standard in Bash 4.0+
+    mapfile -t REPOS < <(grep -vE '^\s*#|^\s*$' "$MANIFEST")
 
     if [ ${#REPOS[@]} -eq 0 ]; then
-        echo "No constructs defined in Fleet Manifest."
-        echo "Edit 'packages/cli/sprawl' to add repositories."
+        echo "No constructs defined in Grid Manifest."
+        echo "Edit '$MANIFEST' to add repositories."
         exit 0
     fi
 
     for repo in "${REPOS[@]}"; do
+        # Trim whitespace just in case
+        repo=$(echo "$repo" | xargs)
+
         name=$(basename "$repo" .git)
         target="$CONSTRUCT_DIR/$name"
         echo "Syncing $name..."
