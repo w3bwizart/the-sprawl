@@ -96,13 +96,15 @@ sync_grid() {
 # 5. Interface
 case "$1" in
     init)
-        scaffold_workspace
+        # Pass the second argument (the name) to the function
+        # e.g. sprawl init "Marketing Hub"
+        scaffold_workspace "$2"
         ;;
     sync)
         sync_grid
         ;;
     *)
-        echo "Usage: sprawl [init|sync]"
+        echo "Usage: sprawl [init <name>|sync]"
         exit 1
         ;;
 esac

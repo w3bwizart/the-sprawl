@@ -1,6 +1,6 @@
-# 📟 Sprawl Control Dashboard
+# 📟 {{HUB_NAME}} Dashboard
 
-Welcome to your specialized Construct.
+Welcome to your specialized {{HUB_NAME}} Construct.
 
 ### 📋 Available Protocols
 - **/init**: Refresh this dashboard and verify workspace settings.
