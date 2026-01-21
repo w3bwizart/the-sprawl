@@ -44,12 +44,17 @@ sudo ln -s $(pwd)/packages/cli/sprawl /usr/local/bin/sprawl
 sprawl init --help
 ```
 
-### 3. Deploy a Construct
-Navigate to your new project folder and initialize the agent:
-```bash
-mkdir MyNewProject && cd MyNewProject
-sprawl init
-```
+### 3. Deploy a Construct (Example)
+Do not run this inside The-Sprawl folder. Go to where you keep your projects.
+
+1.  **Create a Project**: `mkdir My-Marketing-Hub && cd My-Marketing-Hub`
+2.  **Scaffold**: `sprawl init`
+    *   *This injects the Grid structure into your folder.*
+3.  **Activate**:
+    *   Open this new folder in Antigravity.
+    *   Open **Agent Manager** (Cmd+L).
+    *   Type: `/init`
+    *   *The Agent will wake up and read the new rules.*
 
 ## ⚠️ Prime Directives
 1.  **Zero Dependencies**: The system runs on pure logic. Bash, Markdown, Vanilla JS.

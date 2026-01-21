@@ -5,8 +5,15 @@
 set -e
 
 # 1. Resolve Locations
-# Get the absolute path of this script (assuming it lives in packages/cli/)
-SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+# Get the absolute path of this script, satisfying symlinks.
+SOURCE="${BASH_SOURCE[0]}"
+while [ -h "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symlink
+  DIR="$( cd -P "$( dirname "$SOURCE" )" >/dev/null 2>&1 && pwd )"
+  SOURCE="$(readlink "$SOURCE")"
+  [[ $SOURCE != /* ]] && SOURCE="$DIR/$SOURCE" # if $SOURCE was a relative symlink, we need to resolve it relative to the path where the symlink file was located
+done
+SCRIPT_DIR="$( cd -P "$( dirname "$SOURCE" )" >/dev/null 2>&1 && pwd )"
+
 # Resolve the Core Templates path (Sibling directory)
 CORE_DIR="$(dirname "$SCRIPT_DIR")/core"
 TEMPLATE_DIR="$CORE_DIR/templates/scaffold"
@@ -47,16 +54,55 @@ scaffold_workspace() {
     touch Rules/.gitkeep Skills/.gitkeep Workflows/.gitkeep Knowledge/.gitkeep Scripts/.gitkeep
 
     echo -e "\033[0;32m[OK] Construct Ready.\033[0m"
-    echo "👉 Type /init to activate the agent."
+    echo "👉 Action: Open Agent Manager (Cmd+L) and type '/init'."
 }
 
-# 4. Interface
+# 4. Sync Logic (The Grid Link)
+sync_grid() {
+    echo -e "\033[0;33m[..] Synchronizing Grid Constructs...\033[0m"
+
+    # Define Construct Directory (Default to ~/The_Sprawl_Constructs)
+    CONSTRUCT_DIR="$HOME/The_Sprawl_Constructs"
+    mkdir -p "$CONSTRUCT_DIR"
+
+    # TODO: Read from a config file. For now, we simulate the Fleet.
+    # In a real scenario, this list comes from a central manifest.
+    REPOS=(
+        #"https://github.com/Start-Corp/finance-construct.git"
+        #"https://github.com/Start-Corp/marketing-construct.git"
+    )
+
+    if [ ${#REPOS[@]} -eq 0 ]; then
+        echo "No constructs defined in Fleet Manifest."
+        echo "Edit 'packages/cli/sprawl' to add repositories."
+        exit 0
+    fi
+
+    for repo in "${REPOS[@]}"; do
+        name=$(basename "$repo" .git)
+        target="$CONSTRUCT_DIR/$name"
+        echo "Syncing $name..."
+
+        if [ -d "$target" ]; then
+            (cd "$target" && git pull)
+        else
+            git clone "$repo" "$target"
+        fi
+    done
+
+    echo -e "\033[0;32m[OK] Grid Synchronization Complete.\033[0m"
+}
+
+# 5. Interface
 case "$1" in
     init)
         scaffold_workspace
         ;;
+    sync)
+        sync_grid
+        ;;
     *)
-        echo "Usage: sprawl [init]"
+        echo "Usage: sprawl [init|sync]"
         exit 1
         ;;
 esac
