@@ -1,6 +1,6 @@
 {
-    "name": "sprawl-lattice-sync",
-    "displayName": "The Sprawl: Lattice Sync",
+    "name": "sprawl-grid-sync",
+    "displayName": "The Sprawl: Grid Sync",
     "version": "0.1.0",
     "publisher": "Atomic-Agents",
     "engines": {
@@ -24,8 +24,8 @@
         "watch": "tsc -watch -p ./"
     },
     "devDependencies": {
-        "@types/node": "^25.0.0",
-        "@types/vscode": "1.104.0",
-        "typescript": "^5.0.0"
+        "@types/node": "^25.0.9",
+        "@types/vscode": "^1.104.0",
+        "typescript": "^5.9.3"
     }
 }

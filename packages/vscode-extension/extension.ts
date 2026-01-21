@@ -4,7 +4,7 @@ import * as path from 'path';
 import * as os from 'os';
 
 /**
- * The Sprawl: Lattice Sync
+ * The Sprawl: Grid Sync
  * Keeps the local agent constructs synchronized with the central grid.
  */
 export function activate(context: vscode.ExtensionContext) {

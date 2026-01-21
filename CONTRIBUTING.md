@@ -1,6 +1,6 @@
 # Contributing to The Sprawl
 
-So you want to hack the lattice? Good. We need operators like you.
+So you want to hack the Grid? Good. We need operators like you.
 
 ## Protocol
 1.  **Fork** the Construct.

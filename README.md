@@ -8,7 +8,7 @@
 **Access**: Authorized Personnel Only
 
 ## 🌆 Overview
-**The Sprawl** is the unified infrastructure for deploying, managing, and scaling autonomous agentic workmen across the corporate grid. It provides the lattice structure required to contain and orchestrate AI entities without constraining their potential.
+**The Sprawl** is the unified infrastructure for deploying, managing, and scaling autonomous agentic workmen across the corporate grid. It provides the infrastructure required to contain and orchestrate AI entities without constraining their potential.
 
 It consolidates the legacy protocols:
 - `atomic-agentic-architecture` -> **Core** (The Brain)
@@ -25,7 +25,7 @@ The system is organized into decoupled packages to ensure atomic integrity:
 ## ⚡ Getting Started
 
 ### 1. Installation
-Clone the lattice to your development machine:
+Clone the Grid to your development machine:
 ```bash
 git clone https://github.com/Start-Corp/The-Sprawl.git
 cd The-Sprawl

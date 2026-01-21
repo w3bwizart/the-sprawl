@@ -23,7 +23,7 @@ fi
 
 # 3. Scaffolding Logic
 scaffold_workspace() {
-    echo -e "\033[0;33m[..] Constructing Lattice...\033[0m"
+    echo -e "\033[0;33m[..] Constructing Grid...\033[0m"
 
     mkdir -p .agent/rules .agent/workflows
 
