@@ -30,15 +30,25 @@ fi
 
 # 3. Scaffolding Logic
 scaffold_workspace() {
-    echo -e "\033[0;33m[..] Constructing Grid...\033[0m"
+    # 1. Determine Hub Name
+    # Use first argument if provided, else use current directory name
+    HUB_NAME="$1"
+    if [ -z "$HUB_NAME" ]; then
+        HUB_NAME=$(basename "$PWD")
+    fi
+
+    echo -e "\033[0;33m[..] Constructing Grid: $HUB_NAME ...\033[0m"
 
     mkdir -p .agent/rules .agent/workflows
 
     # Copy Templates
     cp "$TEMPLATE_DIR/gitignore" .gitignore
-    cp "$TEMPLATE_DIR/global.md" .agent/rules/global.md
-    cp "$TEMPLATE_DIR/init.md" .agent/workflows/init.md
-    cp "$TEMPLATE_DIR/dashboard.md" AGENT_CONTROL_DASHBOARD.md
+
+    # Process Templates with Hub Name
+    # We use sed to replace {{HUB_NAME}} with the actual name
+    sed "s/{{HUB_NAME}}/$HUB_NAME/g" "$TEMPLATE_DIR/global.md" > .agent/rules/global.md
+    sed "s/{{HUB_NAME}}/$HUB_NAME/g" "$TEMPLATE_DIR/init.md" > .agent/workflows/init.md
+    sed "s/{{HUB_NAME}}/$HUB_NAME/g" "$TEMPLATE_DIR/dashboard.md" > AGENT_CONTROL_DASHBOARD.md
 
     # Copy Prime Directive if it exists
     if [ -f "$CORE_DIR/rules/GEMINI.md" ]; then
@@ -53,7 +63,7 @@ scaffold_workspace() {
     # Add keepfiles to ensure git tracking
     touch Rules/.gitkeep Skills/.gitkeep Workflows/.gitkeep Knowledge/.gitkeep Scripts/.gitkeep
 
-    echo -e "\033[0;32m[OK] Construct Ready.\033[0m"
+    echo -e "\033[0;32m[OK] Construct Ready: $HUB_NAME\033[0m"
     echo "👉 Action: Open Agent Manager (Cmd+L) and type '/init'."
 }
 
