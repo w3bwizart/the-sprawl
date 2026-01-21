@@ -24,10 +24,10 @@ export function activate(context: vscode.ExtensionContext) {
             location: vscode.ProgressLocation.Notification,
             title: "Synchronizing with The Grid...",
             cancellable: false
-        }, async (progress) => {
+        }, async (progress: vscode.Progress<{ message?: string; increment?: number }>) => {
 
             // TODO: Load this from a ~/.sprawl/config.json for true Loose Coupling
-            const fleetRepos = [
+            const fleetRepos: string[] = [
                 // "https://github.com/Start-Corp/finance-construct.git",
                 // "https://github.com/Start-Corp/marketing-construct.git"
             ];
@@ -46,8 +46,10 @@ export function activate(context: vscode.ExtensionContext) {
                 const gitCmd = `git clone ${repo} ${fullPath} || (cd ${fullPath} && git pull)`;
 
                 await new Promise((resolve) => {
-                    exec(gitCmd, (err) => {
-                        if (err) console.error(err); // Log but don't stop
+                    exec(gitCmd, (err: Error | null) => {
+                        if (err) {
+                            vscode.window.showErrorMessage(`Sync Error: ${err.message}`);
+                        }
                         resolve(true);
                     });
                 });
