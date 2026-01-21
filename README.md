@@ -22,12 +22,33 @@ The system is organized into decoupled packages to ensure atomic integrity:
 - **`packages/cli`**: The execution layer. `sprawl-cli` for scaffolding and enforcement.
 - **`packages/vscode-extension`**: The visualization layer. Passive synchronization.
 
-## ⚡ Deployment
+## ⚡ Getting Started
+
+### 1. Installation
+Clone the lattice to your development machine:
 ```bash
-# Initialize the lattice
 git clone https://github.com/Start-Corp/The-Sprawl.git
 cd The-Sprawl
-make install
+```
+
+### 2. Activate the CLI
+Link the `sprawl` executable to your local path to summon constructs anywhere.
+```bash
+# Make executable
+chmod +x packages/cli/sprawl
+
+# Link to bin (Requires Admin/Sudo)
+sudo ln -s $(pwd)/packages/cli/sprawl /usr/local/bin/sprawl
+
+# Verify
+sprawl init --help
+```
+
+### 3. Deploy a Construct
+Navigate to your new project folder and initialize the agent:
+```bash
+mkdir MyNewProject && cd MyNewProject
+sprawl init
 ```
 
 ## ⚠️ Prime Directives
@@ -36,4 +57,4 @@ make install
 3.  **Safety First**: We do not let the AI loose without a leash.
 
 ---
-*Powered by Atomic Agentic Design*
+*Powered by BrainBlend AI*
