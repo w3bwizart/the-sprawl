@@ -253,6 +253,9 @@ show_help() {
     printf "                  (Updates Core, Pulls latest repos from Manifest)\n"
     printf "  \033[0;32mburn\033[0m          Uninstall The Sprawl.\n"
     printf "                  (Irreversibly deletes local Core and Hubs)\n\n"
+    printf "Options:\n"
+    printf "  \033[0;32m-v, --version\033[0m Display version information.\n"
+    printf "  \033[0;32m-h, --help\033[0m    Display this help message.\n\n"
     printf "Example:\n"
     printf "  sprawl init \"Marketing Hub\"\n\n"
 }
