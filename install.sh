@@ -8,15 +8,22 @@ echo -e "\033[0;36m🌆 THE SPRAWL // INSTALLATION PROTOCOL\033[0m"
 
 # 1. Define Fixed Paths
 HIDDEN_CORE="$HOME/.sprawl"
-VISIBLE_HUBS="$HOME/Documents/Antigravity_Hubs"
+VISIBLE_HUBS="$HOME/Documents/SprawlHubs"
 BIN_PATH="/usr/local/bin/sprawl"
 
 # 2. Install Core (The Brain)
 echo -e "\033[0;33m[..] Installing Core to hidden sector: $HIDDEN_CORE\033[0m"
-mkdir -p "$HIDDEN_CORE"
-cp -r packages/core "$HIDDEN_CORE/"
-# Also copy the CLI script for internal reference if needed, but we install to bin separately.
-cp -r packages/cli "$HIDDEN_CORE/"
+
+# We clone the repo to allow for self-updates via 'sprawl sync'
+if [ -d "$HIDDEN_CORE/.git" ]; then
+    echo "Updating existing installation..."
+    (cd "$HIDDEN_CORE" && git pull)
+else
+    # Clone the repo. using the user's remote.
+    # We use the current directory's remote if running from dev, or default.
+    REPO_URL="https://github.com/w3bwizart/the-sprawl.git"
+    git clone "$REPO_URL" "$HIDDEN_CORE"
+fi
 
 # 3. Create Root Hubs Folder (The Workspace)
 echo -e "\033[0;33m[..] Creating Hubs root: $VISIBLE_HUBS\033[0m"
@@ -24,12 +31,9 @@ mkdir -p "$VISIBLE_HUBS"
 
 # 4. Install CLI (The Arm)
 echo -e "\033[0;33m[..] Linking CLI to $BIN_PATH (Requires Sudo)\033[0m"
-# We link to the HIDDEN copy so the user can delete the source repo if they want?
-# OR we link to the user's checkout?
-# User said "install this on all the employees computers".
-# Best practice: Copy the script to the hidden location and link THAT, making it self-contained.
-chmod +x "$HIDDEN_CORE/cli/sprawl"
-sudo ln -sf "$HIDDEN_CORE/cli/sprawl" "$BIN_PATH"
+# In the cloned repo, the script is at packages/cli/sprawl
+chmod +x "$HIDDEN_CORE/packages/cli/sprawl"
+sudo ln -sf "$HIDDEN_CORE/packages/cli/sprawl" "$BIN_PATH"
 
 echo -e "\033[0;32m[OK] System Online.\033[0m"
 echo ""

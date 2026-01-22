@@ -94,11 +94,25 @@ scaffold_workspace() {
 sync_grid() {
     echo -e "\033[0;33m[..] Synchronizing Grid Constructs...\033[0m"
 
+    # 0. Self-Update (Update The Sprawl itself)
+    # Only if we are running from the installed hidden core
+    if [[ "$SCRIPT_DIR" == *".sprawl"* ]]; then
+        echo -e "\033[0;33m[..] Updating Core Protocol...\033[0m"
+        # The script is in packages/cli, so we go up two levels to root
+        REPO_ROOT="$(dirname "$(dirname "$SCRIPT_DIR")")"
+        (cd "$REPO_ROOT" && git pull)
+        echo -e "\033[0;32m[OK] Core Updated.\033[0m"
+    fi
+
     # Define Construct Directory (Default to ~/The_Sprawl_Constructs)
     CONSTRUCT_DIR="$HOME/The_Sprawl_Constructs"
     mkdir -p "$CONSTRUCT_DIR"
 
     # Define Manifest Path (Data separation)
+    # In full Git structure, CORE_DIR is packages/core.
+    # Logic in line 18 sets CORE_DIR based on script siblings.
+    # If SCRIPT_DIR is packages/cli, dirname is packages. packages/core is sibling.
+    # So CORE_DIR should be correct.
     MANIFEST="$CORE_DIR/grid-manifest.conf"
 
     if [ ! -f "$MANIFEST" ]; then
