@@ -81,6 +81,14 @@ You can pre-define what your hub needs using a `package.md` file.
 2.  Run `sprawl init "Finance Hub"`.
 3.  The CLI will automatically pull those specific rules and skills from the Core.
 
+### 5. Uninstall (The Burn Protocol)
+To completely wipe The Sprawl from your system (Core, Hubs, and CLI):
+
+```bash
+sprawl burn
+```
+*Warning: This is irreversible.*
+
 ## ⚠️ Prime Directives
 1.  **Zero Dependencies**: The system runs on pure logic. Bash, Markdown, Vanilla JS.
 2.  **Loose Coupling**: Components must function autonomously.

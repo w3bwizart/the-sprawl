@@ -198,18 +198,46 @@ sync_grid() {
     echo -e "\033[0;32m[OK] Grid Synchronization Complete.\033[0m"
 }
 
-# 5. Interface
+# 6. Burn Logic (Kill Switch)
+burn_protocol() {
+    echo -e "\033[0;31m🔥 WARNING: THE BURN PROTOCOL 🔥\033[0m"
+    echo "This will IRREVERSIBLY DELETE:"
+    echo "1. All Hubs in $CONSTRUCT_DIR"
+    echo "2. The Hidden Core in $HOME/.sprawl"
+    echo "3. The Sprawl CLI binary"
+    echo ""
+    read -p "Are you sure you want to burn the Grid? (y/N): " confirm
+    if [[ "$confirm" != "y" ]]; then
+        echo "Burn aborted."
+        exit 0
+    fi
+
+    echo -e "\033[0;33m[..] Burning Hubs...\033[0m"
+    rm -rf "$CONSTRUCT_DIR"
+
+    echo -e "\033[0;33m[..] Unlinking CLI (Requires Sudo)...\033[0m"
+    sudo rm -f "/usr/local/bin/sprawl"
+
+    echo -e "\033[0;33m[..] Burning Core...\033[0m"
+    # We do this last because this script lives here
+    rm -rf "$HOME/.sprawl"
+
+    echo -e "\033[0;32m[OK] The Grid has been wiped. No trace remains.\033[0m"
+}
+
+# 7. Interface
 case "$1" in
     init)
-        # Pass the second argument (the name) to the function
-        # e.g. sprawl init "Marketing Hub"
         scaffold_workspace "$2"
         ;;
     sync)
         sync_grid
         ;;
+    burn)
+        burn_protocol
+        ;;
     *)
-        echo "Usage: sprawl [init <name>|sync]"
+        echo "Usage: sprawl [init <name>|sync|burn]"
         exit 1
         ;;
 esac
