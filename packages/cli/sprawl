@@ -141,13 +141,15 @@ sync_grid() {
     echo -e "\033[0;33m[..] Synchronizing Grid Constructs...\033[0m"
 
     # 0. Self-Update (Update The Sprawl itself)
-    # Only if we are running from the installed hidden core
-    if [[ "$SCRIPT_DIR" == *".sprawl"* ]]; then
-        echo -e "\033[0;33m[..] Updating Core Protocol...\033[0m"
-        # The script is in packages/cli, so we go up two levels to root
-        REPO_ROOT="$(dirname "$(dirname "$SCRIPT_DIR")")"
-        (cd "$REPO_ROOT" && git pull)
-        echo -e "\033[0;32m[OK] Core Updated.\033[0m"
+    # We rely on the script location to find the repo root (../../)
+    REPO_ROOT="$(dirname "$(dirname "$SCRIPT_DIR")")"
+
+    if [ -d "$REPO_ROOT/.git" ]; then
+        echo -e "\033[0;33m[..] Checking Core Protocol Updates...\033[0m"
+        # Use quiet pull to keep it clean, show output only on error
+        if (cd "$REPO_ROOT" && git pull -q); then
+             echo -e "\033[0;32m[OK] Core Protocol Active.\033[0m"
+        fi
     fi
 
     # Define Construct Directory (Default to ~/The_Sprawl_Constructs)
@@ -171,8 +173,9 @@ sync_grid() {
     mapfile -t REPOS < <(grep -vE '^\s*#|^\s*$' "$MANIFEST")
 
     if [ ${#REPOS[@]} -eq 0 ]; then
-        echo "No constructs defined in Grid Manifest."
-        echo "Edit '$MANIFEST' to add repositories."
+        echo -e "\033[0;32m[OK] System Sync Complete.\033[0m"
+        echo -e "\033[0;36m💡 Tip: To sync other projects, add them to:\033[0m"
+        echo "   $MANIFEST"
         exit 0
     fi
 
