@@ -36,9 +36,13 @@ Located at `packages/core/grid-manifest.conf`.
 Defines the list of repositories that `sprawl sync` will keep updated.
 ```ini
 # Group repos by logic
-# INFRA
-git@github.com:Start-Corp/the-sprawl.git
-# FINANCE
+
+# INFRASTRUCTURE
+# (The Sprawl updates itself automatically in the background.
+#  Uncomment below only if you want a visible reference copy in your Hubs folder.)
+# git@github.com:w3bwizart/the-sprawl.git
+
+# DEPARTMENTS
 git@github.com:Start-Corp/finance-hub.git
 ```
 
