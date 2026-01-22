@@ -8,12 +8,18 @@
 **Access**: Authorized Personnel Only
 
 ## 🌆 Overview
-**The Sprawl** is the unified infrastructure for deploying, managing, and scaling autonomous agentic workmen across the corporate grid. It provides the infrastructure required to contain and orchestrate AI entities without constraining their potential.
+**The Sprawl** (Internal ID: The Grid) is the company-wide infrastructure for organizing your AI Agents.
 
-It consolidates the legacy protocols:
-- `atomic-agentic-architecture` -> **Core** (The Brain)
-- `atomic-agentic-hubs` -> **CLI** (The Arm)
-- `atomic-agentic-sync` -> **Link** (The Eye)
+Think of it as the **Operating System** for your AI work.
+Instead of every department building their own random folders and prompts, everyone uses **The Sprawl** to ensure:
+1.  **Safety**: All agents follow the same security rules.
+2.  **Consistency**: Everyone uses the same folder structure.
+3.  **Updates**: When the core team updates a rule, everyone gets it.
+
+It brings together these legacy tools:
+- `architecture` -> **Core** (The Brain: Rules, Skills, Templates)
+- `hubs` -> **CLI** (The Builder: Scaffolds new projects)
+- `sync` -> **Extension** (The Link: Updates your projects from the central Brain)
 
 ## 📂 Architecture
 The system is organized into decoupled packages to ensure atomic integrity:
@@ -45,16 +51,22 @@ sprawl init --help
 ```
 
 ### 3. Deploy a Construct (Example)
-Do not run this inside The-Sprawl folder. Go to where you keep your projects.
+**Scenario**: You are a Marketing Manager and want to start using AI to write posts.
 
-1.  **Create a Project**: `mkdir My-Marketing-Hub && cd My-Marketing-Hub`
-2.  **Scaffold**: `sprawl init`
-    *   *This injects the Grid structure into your folder.*
-3.  **Activate**:
-    *   Open this new folder in Antigravity.
+1.  **Create your folder**:
+    ```bash
+    mkdir Marketing-Hub && cd Marketing-Hub
+    ```
+2.  **Initialize the Agent**:
+    ```bash
+    sprawl init "Marketing Hub"
+    ```
+    *   *System Response*: `[OK] Construct Ready: Marketing Hub`
+3.  **Wake Up the Agent**:
+    *   Open this folder in your IDE (Antigravity).
     *   Open **Agent Manager** (Cmd+L).
-    *   Type: `/init`
-    *   *The Agent will wake up and read the new rules.*
+    *   Type `/init` and press Enter.
+    *   *Result*: The Agent will read your new Rules and default Skills.
 
 ## ⚠️ Prime Directives
 1.  **Zero Dependencies**: The system runs on pure logic. Bash, Markdown, Vanilla JS.

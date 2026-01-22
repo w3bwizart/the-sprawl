@@ -3,3 +3,8 @@
 node_modules/
 .DS_Store
 *.log
+.env
+*.pem
+*.key
+id_rsa
+secrets.*
