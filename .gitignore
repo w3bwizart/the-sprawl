@@ -8,3 +8,7 @@ node_modules/
 *.key
 id_rsa
 secrets.*
+out/
+test_env/
+*.vsix
+
