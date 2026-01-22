@@ -30,15 +30,17 @@ The system is organized into decoupled packages to ensure atomic integrity:
 
 ## ⚡ Getting Started
 
-### 1. Installation
-Clone the Grid to your development machine:
+### 1. Corporate Installation (Recommended)
+This sets up the hidden Core and the visible Hubs folder automatically.
+
 ```bash
 git clone https://github.com/Start-Corp/The-Sprawl.git
 cd The-Sprawl
+./install.sh
 ```
 
-### 2. Activate the CLI
-Link the `sprawl` executable to your local path to summon constructs anywhere.
+### 2. Manual Installation (Dev Mode)
+If you prefer to link manually:
 ```bash
 # Make executable
 chmod +x packages/cli/sprawl

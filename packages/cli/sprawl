@@ -14,17 +14,33 @@ while [ -h "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symli
 done
 SCRIPT_DIR="$( cd -P "$( dirname "$SOURCE" )" >/dev/null 2>&1 && pwd )"
 
-# Resolve the Core Templates path (Sibling directory)
-CORE_DIR="$(dirname "$SCRIPT_DIR")/core"
+# Resolve the Core Templates path
+# Priority 1: Relative Path (Dev Mode)
+# Priority 2: Installed Path (Prod Mode)
+SCRIPT_DIR="$( cd -P "$( dirname "$SOURCE" )" >/dev/null 2>&1 && pwd )"
+RELATIVE_CORE="$(dirname "$SCRIPT_DIR")/core"
+INSTALLED_CORE="$HOME/.sprawl/core"
+
+if [ -d "$RELATIVE_CORE" ]; then
+    CORE_DIR="$RELATIVE_CORE"
+elif [ -d "$INSTALLED_CORE" ]; then
+    CORE_DIR="$INSTALLED_CORE"
+else
+    echo -e "\033[0;31m[ERROR] Core Protocol Missing.\033[0m"
+    echo "Checked: $RELATIVE_CORE"
+    echo "Checked: $INSTALLED_CORE"
+    exit 1
+fi
+
 TEMPLATE_DIR="$CORE_DIR/templates/scaffold"
 
 echo -e "\033[0;36m🌆 THE SPRAWL // SYSTEM INITIALIZATION\033[0m"
 
 # 2. Validation
+# 2. Validation
 if [ ! -d "$TEMPLATE_DIR" ]; then
-    echo -e "\033[0;31m[ERROR] Core Protocol Missing.\033[0m"
-    echo "Expected at: $TEMPLATE_DIR"
-    echo "Ensure 'packages/core' is mapped correctly."
+    echo -e "\033[0;31m[ERROR] Templates invalid.\033[0m"
+    echo "Path: $TEMPLATE_DIR"
     exit 1
 fi
 
