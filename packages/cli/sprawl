@@ -87,6 +87,52 @@ scaffold_workspace() {
     sed "s/{{HUB_NAME}}/$HUB_NAME/g" "$TEMPLATE_DIR/README_Scripts.md" > Scripts/README.md
 
     echo -e "\033[0;32m[OK] Construct Ready: $HUB_NAME\033[0m"
+
+    # Check for package.md (Manifest for Dependencies)
+    PACKAGE_FILE="package.md"
+    if [ -f "$PACKAGE_FILE" ]; then
+        echo -e "\033[0;33m[..] Processing Package Manifest...\033[0m"
+        while IFS= read -r line || [[ -n "$line" ]]; do
+            # Skip comments and empty lines
+            [[ "$line" =~ ^#.*$ ]] && continue
+            [[ -z "$line" ]] && continue
+
+            # Parse Format: type:name (e.g., rule:finance-auditor)
+            TYPE=$(echo "$line" | cut -d':' -f1 | tr '[:upper:]' '[:lower:]')
+            NAME=$(echo "$line" | cut -d':' -f2 | xargs)
+
+            SOURCE_PATH=""
+            DEST_PATH=""
+
+            case "$TYPE" in
+                rule)
+                    SOURCE_PATH="$CORE_DIR/Hub/Rules/$NAME.md"
+                    DEST_PATH="Rules/$NAME.md"
+                    ;;
+                skill)
+                    SOURCE_PATH="$CORE_DIR/Hub/Skills/$NAME"
+                    DEST_PATH="Skills/$NAME"
+                    ;;
+                workflow)
+                    SOURCE_PATH="$CORE_DIR/Hub/Workflows/$NAME.md"
+                    DEST_PATH="Workflows/$NAME.md"
+                    ;;
+                *)
+                    echo "Unknown type: $TYPE"
+                    continue
+                    ;;
+            esac
+
+            if [ -e "$SOURCE_PATH" ]; then
+                echo "Installing $TYPE: $NAME"
+                cp -r "$SOURCE_PATH" "$DEST_PATH"
+            else
+                echo -e "\033[0;31m[!] Missing $TYPE: $NAME (Not found in Core)\033[0m"
+            fi
+        done < "$PACKAGE_FILE"
+        echo -e "\033[0;32m[OK] Packages Installed.\033[0m"
+    fi
+
     echo "👉 Action: Open Agent Manager (Cmd+L) and type '/init'."
 }
 
