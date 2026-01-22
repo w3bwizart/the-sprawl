@@ -152,8 +152,9 @@ sync_grid() {
         fi
     fi
 
-    # Define Construct Directory (Default to ~/The_Sprawl_Constructs)
-    CONSTRUCT_DIR="$HOME/The_Sprawl_Constructs"
+    # Define Construct Directory
+    # We use the Corporate Standard location
+    CONSTRUCT_DIR="$HOME/Documents/SprawlHubs"
     mkdir -p "$CONSTRUCT_DIR"
 
     # Define Manifest Path (Data separation)
