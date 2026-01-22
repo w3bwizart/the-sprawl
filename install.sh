@@ -15,13 +15,18 @@ BIN_PATH="/usr/local/bin/sprawl"
 echo -e "\033[0;33m[..] Installing Core to hidden sector: $HIDDEN_CORE\033[0m"
 
 # We clone the repo to allow for self-updates via 'sprawl sync'
+REPO_URL="https://github.com/w3bwizart/the-sprawl.git"
+
 if [ -d "$HIDDEN_CORE/.git" ]; then
     echo "Updating existing installation..."
     (cd "$HIDDEN_CORE" && git pull)
+elif [ -d "$HIDDEN_CORE" ]; then
+    # Directory exists but no .git folder (likely created by previous cp-based install)
+    echo -e "\033[0;33m[!] Legacy installation detected. Resetting Core...\033[0m"
+    rm -rf "$HIDDEN_CORE"
+    git clone "$REPO_URL" "$HIDDEN_CORE"
 else
-    # Clone the repo. using the user's remote.
-    # We use the current directory's remote if running from dev, or default.
-    REPO_URL="https://github.com/w3bwizart/the-sprawl.git"
+    # Fresh Install
     git clone "$REPO_URL" "$HIDDEN_CORE"
 fi
 
