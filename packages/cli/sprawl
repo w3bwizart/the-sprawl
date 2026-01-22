@@ -61,6 +61,7 @@ scaffold_workspace() {
 
     # Copy Templates
     cp "$TEMPLATE_DIR/gitignore" .gitignore
+    cp "$TEMPLATE_DIR/package.md" package.md
 
     # Process Templates with Hub Name
     # We use sed to replace {{HUB_NAME}} with the actual name
