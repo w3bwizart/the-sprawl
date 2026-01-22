@@ -28,4 +28,25 @@ Scaffolding assets used by the **CLI**.
 
 ## 🔗 Integration
 The **CLI** pulls these artifacts during workspace initialization.
-The **Extension** references these to validate local compliance.
+
+## 📜 Technical Reference
+
+### Grid Manifest (`grid-manifest.conf`)
+Located at `packages/core/grid-manifest.conf`.
+Defines the list of repositories that `sprawl sync` will keep updated.
+```ini
+# Group repos by logic
+# INFRA
+git@github.com:Start-Corp/the-sprawl.git
+# FINANCE
+git@github.com:Start-Corp/finance-hub.git
+```
+
+### Package Manifest (`package.md`)
+Located in specific Hubs (not in Core).
+Defines which assets to hydrate from Core during initialization.
+```yaml
+rule: <filename-without-extension>
+skill: <directory-name>
+workflow: <filename-without-extension>
+```

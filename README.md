@@ -70,6 +70,18 @@ sprawl init --help
     *   Type `/init` and press Enter.
     *   *Result*: The Agent will read your new Rules and default Skills.
 
+### 4. Advanced: Using Packages
+You can pre-define what your hub needs using a `package.md` file.
+
+1.  Create `package.md` in your empty folder:
+    ```yaml
+    rule: finance-auditor
+    skill: jira-connector
+    workflow: monthly-report
+    ```
+2.  Run `sprawl init "Finance Hub"`.
+3.  The CLI will automatically pull those specific rules and skills from the Core.
+
 ## ⚠️ Prime Directives
 1.  **Zero Dependencies**: The system runs on pure logic. Bash, Markdown, Vanilla JS.
 2.  **Loose Coupling**: Components must function autonomously.
