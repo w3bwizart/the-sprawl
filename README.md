@@ -56,9 +56,8 @@ sprawl init --help
 **Scenario**: You are a Marketing Manager and want to start using AI to write posts.
 
 1.  **Create your folder**:
-    ```bash
-    mkdir Marketing-Hub && cd Marketing-Hub
-    ```
+    *   Go to your Hubs directory: `cd ~/Documents/SprawlHubs`
+    *   Create the hub: `mkdir Marketing-Hub && cd Marketing-Hub`
 2.  **Initialize the Agent**:
     ```bash
     sprawl init "Marketing Hub"
