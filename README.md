@@ -89,6 +89,16 @@ sprawl burn
 ```
 *Warning: This is irreversible.*
 
+## 📟 CLI Reference
+
+| Command | Description |
+| :--- | :--- |
+| `sprawl init "Name"` | Initialize a new Hub in the current directory. |
+| `sprawl sync` | Update Core and pull all Hubs from `grid-manifest.conf`. |
+| `sprawl burn` | **[DANGER]** Irreversibly uninstall Core and Hubs. |
+| `sprawl -v` | Show version. |
+| `sprawl -h` | Show help menu. |
+
 ## ⚠️ Prime Directives
 1.  **Zero Dependencies**: The system runs on pure logic. Bash, Markdown, Vanilla JS.
 2.  **Loose Coupling**: Components must function autonomously.
