@@ -63,6 +63,13 @@ scaffold_workspace() {
     # Add keepfiles to ensure git tracking
     touch Rules/.gitkeep Skills/.gitkeep Workflows/.gitkeep Knowledge/.gitkeep Scripts/.gitkeep
 
+    # Documentation: Inject Protocol Explanations
+    sed "s/{{HUB_NAME}}/$HUB_NAME/g" "$TEMPLATE_DIR/README_Rules.md" > Rules/README.md
+    sed "s/{{HUB_NAME}}/$HUB_NAME/g" "$TEMPLATE_DIR/README_Skills.md" > Skills/README.md
+    sed "s/{{HUB_NAME}}/$HUB_NAME/g" "$TEMPLATE_DIR/README_Workflows.md" > Workflows/README.md
+    sed "s/{{HUB_NAME}}/$HUB_NAME/g" "$TEMPLATE_DIR/README_Knowledge.md" > Knowledge/README.md
+    sed "s/{{HUB_NAME}}/$HUB_NAME/g" "$TEMPLATE_DIR/README_Scripts.md" > Scripts/README.md
+
     echo -e "\033[0;32m[OK] Construct Ready: $HUB_NAME\033[0m"
     echo "👉 Action: Open Agent Manager (Cmd+L) and type '/init'."
 }
